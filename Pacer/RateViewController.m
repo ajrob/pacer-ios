@@ -68,35 +68,4 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
--(BOOL)verifyValidNumberFormat:(NSString *)numberString
-{
-    // If its just an empty string, skip verification
-    if ([numberString isEqualToString:@""]) {
-        return YES;
-    }
-    else
-    {
-        NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
-        [f setNumberStyle:NSNumberFormatterNoStyle];
-        
-        //TODO: output should go to a NSNumber instead.
-        rateDouble = [[f numberFromString:numberString] doubleValue];
-        
-        if (!rateDouble) {
-            NSLog(@"Not a number");
-            UIAlertView *alert = [[UIAlertView alloc]
-                                  initWithTitle:@"Invalid Number"
-                                  message:@"Please enter a valid number"
-                                  delegate:self
-                                  cancelButtonTitle:@"OK"
-                                  otherButtonTitles:nil, nil];
-            [alert show];
-            return NO;
-        }
-        else
-        {
-            return YES;
-        }
-    }
-}
 @end
