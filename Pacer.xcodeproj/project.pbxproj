@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA070ECA18BEF5B9004A6F3B /* PaceValues.m in Sources */ = {isa = PBXBuildFile; fileRef = FA070EC918BEF5B9004A6F3B /* PaceValues.m */; };
+		FA55181C189D325100C1CDA4 /* DistanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA55181B189D325100C1CDA4 /* DistanceViewController.m */; };
+		FA551824189DB10200C1CDA4 /* DropAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA551823189DB10200C1CDA4 /* DropAnimationController.m */; };
+		FA551829189EF95000C1CDA4 /* DurationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA551828189EF95000C1CDA4 /* DurationViewController.m */; };
+		FA55182C189EF96100C1CDA4 /* RateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA55182B189EF96100C1CDA4 /* RateViewController.m */; };
 		FAC415D11889BB4C00E3BE89 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC415D01889BB4C00E3BE89 /* Foundation.framework */; };
 		FAC415D31889BB4C00E3BE89 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC415D21889BB4C00E3BE89 /* CoreGraphics.framework */; };
 		FAC415D51889BB4C00E3BE89 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC415D41889BB4C00E3BE89 /* UIKit.framework */; };
@@ -21,6 +26,7 @@
 		FAC415F21889BB4C00E3BE89 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC415D41889BB4C00E3BE89 /* UIKit.framework */; };
 		FAC415FA1889BB4C00E3BE89 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FAC415F81889BB4C00E3BE89 /* InfoPlist.strings */; };
 		FAC415FC1889BB4C00E3BE89 /* PacerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC415FB1889BB4C00E3BE89 /* PacerTests.m */; };
+		FAC4160C188A032700E3BE89 /* raceBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = FAC4160B188A032700E3BE89 /* raceBtn.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +40,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FA070EC818BEF5B9004A6F3B /* PaceValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaceValues.h; sourceTree = "<group>"; };
+		FA070EC918BEF5B9004A6F3B /* PaceValues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaceValues.m; sourceTree = "<group>"; };
+		FA55181A189D325100C1CDA4 /* DistanceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DistanceViewController.h; sourceTree = "<group>"; };
+		FA55181B189D325100C1CDA4 /* DistanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DistanceViewController.m; sourceTree = "<group>"; };
+		FA551821189DB10200C1CDA4 /* ADVAnimationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADVAnimationController.h; sourceTree = "<group>"; };
+		FA551822189DB10200C1CDA4 /* DropAnimationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropAnimationController.h; sourceTree = "<group>"; };
+		FA551823189DB10200C1CDA4 /* DropAnimationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropAnimationController.m; sourceTree = "<group>"; };
+		FA551827189EF95000C1CDA4 /* DurationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DurationViewController.h; sourceTree = "<group>"; };
+		FA551828189EF95000C1CDA4 /* DurationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DurationViewController.m; sourceTree = "<group>"; };
+		FA55182A189EF96100C1CDA4 /* RateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RateViewController.h; sourceTree = "<group>"; };
+		FA55182B189EF96100C1CDA4 /* RateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RateViewController.m; sourceTree = "<group>"; };
 		FAC415CD1889BB4C00E3BE89 /* Pacer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pacer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAC415D01889BB4C00E3BE89 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		FAC415D21889BB4C00E3BE89 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -53,6 +70,7 @@
 		FAC415F71889BB4C00E3BE89 /* PacerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PacerTests-Info.plist"; sourceTree = "<group>"; };
 		FAC415F91889BB4C00E3BE89 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FAC415FB1889BB4C00E3BE89 /* PacerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PacerTests.m; sourceTree = "<group>"; };
+		FAC4160B188A032700E3BE89 /* raceBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = raceBtn.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +97,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FA070EC718BEF57B004A6F3B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FA070EC818BEF5B9004A6F3B /* PaceValues.h */,
+				FA070EC918BEF5B9004A6F3B /* PaceValues.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		FA551825189DB11400C1CDA4 /* TransitionControllers */ = {
+			isa = PBXGroup;
+			children = (
+				FA551821189DB10200C1CDA4 /* ADVAnimationController.h */,
+				FA551822189DB10200C1CDA4 /* DropAnimationController.h */,
+				FA551823189DB10200C1CDA4 /* DropAnimationController.m */,
+			);
+			name = TransitionControllers;
+			sourceTree = "<group>";
+		};
+		FA551826189DBBFA00C1CDA4 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				FAC415E51889BB4C00E3BE89 /* ViewController.h */,
+				FAC415E61889BB4C00E3BE89 /* ViewController.m */,
+				FA55181A189D325100C1CDA4 /* DistanceViewController.h */,
+				FA55181B189D325100C1CDA4 /* DistanceViewController.m */,
+				FA551827189EF95000C1CDA4 /* DurationViewController.h */,
+				FA551828189EF95000C1CDA4 /* DurationViewController.m */,
+				FA55182A189EF96100C1CDA4 /* RateViewController.h */,
+				FA55182B189EF96100C1CDA4 /* RateViewController.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
 		FAC415C41889BB4C00E3BE89 = {
 			isa = PBXGroup;
 			children = (
@@ -112,12 +164,14 @@
 		FAC415D61889BB4C00E3BE89 /* Pacer */ = {
 			isa = PBXGroup;
 			children = (
+				FAC4160A188A030E00E3BE89 /* Assets */,
 				FAC415DF1889BB4C00E3BE89 /* AppDelegate.h */,
 				FAC415E01889BB4C00E3BE89 /* AppDelegate.m */,
 				FAC415E21889BB4C00E3BE89 /* Main.storyboard */,
-				FAC415E51889BB4C00E3BE89 /* ViewController.h */,
-				FAC415E61889BB4C00E3BE89 /* ViewController.m */,
 				FAC415E81889BB4C00E3BE89 /* Images.xcassets */,
+				FA070EC718BEF57B004A6F3B /* Models */,
+				FA551826189DBBFA00C1CDA4 /* ViewControllers */,
+				FA551825189DB11400C1CDA4 /* TransitionControllers */,
 				FAC415D71889BB4C00E3BE89 /* Supporting Files */,
 			);
 			path = Pacer;
@@ -150,6 +204,14 @@
 				FAC415F81889BB4C00E3BE89 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FAC4160A188A030E00E3BE89 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				FAC4160B188A032700E3BE89 /* raceBtn.png */,
+			);
+			name = Assets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -229,6 +291,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAC415E91889BB4C00E3BE89 /* Images.xcassets in Resources */,
+				FAC4160C188A032700E3BE89 /* raceBtn.png in Resources */,
 				FAC415DB1889BB4C00E3BE89 /* InfoPlist.strings in Resources */,
 				FAC415E41889BB4C00E3BE89 /* Main.storyboard in Resources */,
 			);
@@ -249,8 +312,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA070ECA18BEF5B9004A6F3B /* PaceValues.m in Sources */,
 				FAC415E71889BB4C00E3BE89 /* ViewController.m in Sources */,
+				FA551824189DB10200C1CDA4 /* DropAnimationController.m in Sources */,
+				FA55181C189D325100C1CDA4 /* DistanceViewController.m in Sources */,
 				FAC415E11889BB4C00E3BE89 /* AppDelegate.m in Sources */,
+				FA55182C189EF96100C1CDA4 /* RateViewController.m in Sources */,
+				FA551829189EF95000C1CDA4 /* DurationViewController.m in Sources */,
 				FAC415DD1889BB4C00E3BE89 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -378,6 +446,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Pacer/Pacer-Prefix.pch";
 				INFOPLIST_FILE = "Pacer/Pacer-Info.plist";
@@ -391,6 +460,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Pacer/Pacer-Prefix.pch";
 				INFOPLIST_FILE = "Pacer/Pacer-Info.plist";
@@ -460,6 +530,7 @@
 				FAC416011889BB4C00E3BE89 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FAC416021889BB4C00E3BE89 /* Build configuration list for PBXNativeTarget "PacerTests" */ = {
 			isa = XCConfigurationList;
@@ -468,6 +539,7 @@
 				FAC416041889BB4C00E3BE89 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
