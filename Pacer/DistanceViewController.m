@@ -14,7 +14,7 @@
 @end
 
 @implementation DistanceViewController
-@synthesize delegate, distanceDouble, unitOfLengthString;
+@synthesize delegate, unitOfLengthString;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -44,18 +44,13 @@
 
 - (IBAction)goBack:(id)sender
 {
-    if (![_distanceTextField.text isEqualToString:@""]) {
-//        distanceDouble =
-    }
     unitOfLengthString = [_segmentedUnitOfLength titleForSegmentAtIndex:[_segmentedUnitOfLength selectedSegmentIndex]];
     
-    if (![self verifyValidNumberFormat:_distanceTextField.text]) {
-        _distanceTextField.text = @"";
-        return;
+    if ([self verifyValidNumberFormat:_distanceTextField.text]) {
+        [[self delegate] setDistanceValue:_distance];
+        [[self delegate] setUnitOfLength:unitOfLengthString];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
-    [[self delegate] setDistanceValue:distanceDouble];
-    [[self delegate] setUnitOfLength:unitOfLengthString];
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(IBAction)dismissKeyboard:(id)sender
@@ -67,15 +62,16 @@
 {
     // If its just an empty string, skip verification
     if ([numberString isEqualToString:@""]) {
+        _distance = [NSNumber numberWithDouble:0.0];
         return YES;
     }
     else
     {
         NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
         [f setNumberStyle:NSNumberFormatterDecimalStyle];
-        distanceDouble = [[f numberFromString:numberString] doubleValue];
+        _distance = [f numberFromString:numberString];
         
-        if (!distanceDouble) {
+        if (!_distance) {
             NSLog(@"Not a number");
             UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:@"Invalid Number"
@@ -84,6 +80,7 @@
                                   cancelButtonTitle:@"OK"
                                   otherButtonTitles:nil, nil];
             [alert show];
+            _distance = [NSNumber numberWithDouble:0.0];
             return NO;
         }
         else

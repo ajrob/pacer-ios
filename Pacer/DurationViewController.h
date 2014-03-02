@@ -10,16 +10,16 @@
 
 @protocol passDurationData <NSObject>
 
--(void) setDurationValue:(double)durationData;
+-(void) setDurationValuesHour:(NSNumber *)durationHour minutes:(NSNumber *)durationMinutes seconds:(NSNumber *)durationSeconds;
 
 @end
 
 @interface DurationViewController : UIViewController
 
 @property (retain) id<passDurationData> delegate;
-@property double durationSecondsDouble;
+@property (weak, nonatomic) NSNumber *durationSeconds;
 
-@property double hours, minutes, seconds;
+@property (weak, nonatomic) NSNumber *hours, *minutes, *seconds;
 @property (strong, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet UITextField *hoursTextField;
 @property (weak, nonatomic) IBOutlet UITextField *minutesTextField;

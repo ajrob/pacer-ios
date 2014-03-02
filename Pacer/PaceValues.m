@@ -36,7 +36,7 @@
 #pragma mark -
 #pragma mark Utility Methods
 
--(NSNumber *)convertToSecondsUsing:(NSNumber *)hours using:(NSNumber *)minutes using:(NSNumber *)seconds
+-(NSNumber *)convertToSecondsUsingHours:(NSNumber *)hours minutes:(NSNumber *)minutes seconds:(NSNumber *)seconds
 {
     // Any character, numberic, or boolean value prefixed with '@' will evaluate to a pointer to an NSNumber object using the appropriate initializer.
     // For example:
@@ -49,5 +49,15 @@
 {
     
 }
+
+-(NSNumber *)convertDistancePerHourIntoPerSecond:(NSNumber *)speed
+{
+    return @([speed doubleValue] / 3600);
+}
+
+//-(NSNumber *)convertSecondsPerDistanceUnitUsingMinutes:(NSNumber *)minutes andSeconds:(NSNumber *)seconds
+//{
+//    return @(([minutes intValue] * 60) + [seconds intValue]);
+//}
 
 @end

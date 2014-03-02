@@ -8,13 +8,14 @@
 
 #import "DurationViewController.h"
 #import "ViewController.h"
+#import "PaceValues.h"
 
 @interface DurationViewController ()
 
 @end
 
 @implementation DurationViewController
-@synthesize delegate, durationSecondsDouble;
+@synthesize delegate, durationSeconds;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -41,44 +42,34 @@
 
 - (IBAction)goBack:(id)sender
 {
-    // Store the value into the delegate variables
-    
-    durationSecondsDouble = [self calculateTotalDurationInSeconds];
-    
-    
-//    unitOfLengthString = [_segmentedUnitOfLength titleForSegmentAtIndex:[_segmentedUnitOfLength selectedSegmentIndex]];
-//    
-//    if (![self verifyValidNumberFormat:_distanceTextField.text]) {
-//        _distanceTextField.text = @"";
-//        return;
-//    }
-//    [[self delegate] setDistanceValue:distanceDouble];
-//    [[self delegate] setUnitOfLength:unitOfLengthString];
-//    [self dismissViewControllerAnimated:YES completion:nil];
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
+    // Verify text fields
+    NSNumber *hourTemp, *minTemp, *secTemp;
+    if ([self verifyValidNumberFormat:_hoursTextField.text insertInto:&hourTemp] &&
+        [self verifyValidNumberFormat:_minutesTextField.text insertInto:&minTemp] &&
+        [self verifyValidNumberFormat:_secondsTextField.text insertInto:&secTemp])
+    {
+//        _hours = hourTemp;
+//        _minutes = minTemp;
+//        _seconds = secTemp;
+        [[self delegate] setDurationValuesHour:hourTemp minutes:minTemp seconds:secTemp];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
-- (double)calculateTotalDurationInSeconds
-{
-    
-    return 0.0;
-}
-
--(BOOL)verifyValidNumberFormat:(NSString *)numberString insertInto:(double)aDoubleNumber;
+-(BOOL)verifyValidNumberFormat:(NSString *)numberString insertInto:(NSNumber **)aNumber;
 {
     // If its just an empty string, skip verification
     if ([numberString isEqualToString:@""]) {
-        aDoubleNumber = 0;
+        *aNumber = [NSNumber numberWithDouble:0.0];
         return YES;
     }
     else
     {
         NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
         [f setNumberStyle:NSNumberFormatterDecimalStyle];
-        aDoubleNumber = [[f numberFromString:numberString] doubleValue];
+        *aNumber = [f numberFromString:numberString];
         
-        if (!aDoubleNumber) {
+        if (!aNumber) {
             NSLog(@"Not a number");
             UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:@"Invalid Number"
@@ -87,7 +78,7 @@
                                   cancelButtonTitle:@"OK"
                                   otherButtonTitles:nil, nil];
             [alert show];
-            aDoubleNumber = 0;
+            *aNumber = [NSNumber numberWithDouble:0.0];
             return NO;
         }
         else

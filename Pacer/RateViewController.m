@@ -14,7 +14,7 @@
 @end
 
 @implementation RateViewController
-@synthesize delegate, rateDouble;
+@synthesize delegate, rate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -41,31 +41,80 @@
 
 - (IBAction)goBack:(id)sender
 {
-    // If there's something in the text field, check it...
-    if (![_speedTextField.text isEqualToString:@""]) {
+    NSNumber *minuteTemp, *secondTemp, *speedTemp;
+    switch (_rateSegmented.selectedSegmentIndex) {
+        case 0:
+            // Pace View
+            if ([self verifyValidNumberFormat:_paceMinuteTextField.text insertInto:&minuteTemp] &&
+                [self verifyValidNumberFormat:_paceSecondTextField.text insertInto:&secondTemp])
+            {
+                [[self delegate] setPaceValuesMinutes:minuteTemp seconds:secondTemp];
+                
+            }
+            break;
+        case 1:
+            //Speed View
+            if ([self verifyValidNumberFormat:_speedTextField.text insertInto:&speedTemp])
+            {
+                [[self delegate] setSpeedValue:speedTemp];
+                
+            }
+            break;
+            
+        default:
+            break;
+    }
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(BOOL)verifyValidNumberFormat:(NSString *)numberString insertInto:(NSNumber **)aNumber;
+{
+    // If its just an empty string, skip verification
+    if ([numberString isEqualToString:@""]) {
+        *aNumber = [NSNumber numberWithDouble:0.0];
+        return YES;
+    }
+    // Else there's something in the text field, check it...
+    else
+    {
         NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
-        [f setNumberStyle:NSNumberFormatterNoStyle];
+        [f setNumberStyle:NSNumberFormatterDecimalStyle];
+        *aNumber = [f numberFromString:numberString];
         
-        // If the text field value isn't a number, show an alert...
-        if ([f numberFromString:_speedTextField.text] == nil) {
+        if (!aNumber) {
             NSLog(@"Not a number");
             UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:@"Invalid Number"
                                   message:@"Please enter a valid number"
                                   delegate:self
-                                  cancelButtonTitle:@"Ok"
+                                  cancelButtonTitle:@"OK"
                                   otherButtonTitles:nil, nil];
             [alert show];
-            return; //...and jump out of method
+            *aNumber = [NSNumber numberWithDouble:0.0];
+            return NO;
         }
         else
         {
-            // ...otherwise it's valid, assign it
-            [[self delegate] setRateValue:rateDouble];
+            return YES;
         }
     }
-    // ...resign view and return
-    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+- (IBAction)rateSegmentChanged:(id)sender
+{
+    switch (_rateSegmented.selectedSegmentIndex) {
+        case 0:
+            _paceView.hidden = NO;
+            _speedView.hidden = YES;
+            break;
+        case 1:
+            _paceView.hidden = YES;
+            _speedView.hidden = NO;
+            break;
+        default:
+            break;
+    }
 }
 
 @end

@@ -49,6 +49,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 
+    _paceValues = [[PaceValues alloc] init];
     _variableCounter = 0;
     _willResetVariables = NO;
     
@@ -98,33 +99,35 @@
 -(void)viewDidLayoutSubviews
 {
     // If distance is not empty, reset the button text
-    if (_distance > 0.0f) {
-        [_distanceButton setTitle:[NSString stringWithFormat:@"%.1f %@", _distance, unitOfLengthString] forState:UIControlStateNormal];
+    if ([_distance doubleValue] > 0.0f) {
+        [_distanceButton setTitle:[NSString stringWithFormat:@"%@ %@", _distance, unitOfLengthString] forState:UIControlStateNormal];
     }
     // Else reset to its default value
     else
     {
         [_distanceButton setTitle:@"this distance" forState:UIControlStateNormal];
     }
-    if (_rate > 0.0f) {
-        [_rateButton setTitle:[NSString stringWithFormat:@"%.1f", _rate] forState:UIControlStateNormal];
+    
+    if ([_rate doubleValue] > 0.0f) {
+        [_rateButton setTitle:[NSString stringWithFormat:@"%@", _rate] forState:UIControlStateNormal];
     }
     else
     {
         [_rateButton setTitle:@"this speed" forState:UIControlStateNormal];
     }
-    if (_duration > 0.0f) {
-        [_durationButton setTitle:[NSString stringWithFormat:@"%.1f", _duration] forState:UIControlStateNormal];
+    
+    if ([_duration doubleValue] > 0.0f) {
+        [_durationButton setTitle:[NSString stringWithFormat:@"%@", _duration] forState:UIControlStateNormal];
     }
     else
     {
-        [_durationButton setTitle:@"this speed" forState:UIControlStateNormal];
+        [_durationButton setTitle:@"this duration" forState:UIControlStateNormal];
     }
     
     [super viewDidLayoutSubviews];
+    [self.view layoutIfNeeded];
     [self.scrollView layoutIfNeeded];
     self.scrollView.contentSize = self.contentView.bounds.size;
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -217,15 +220,15 @@
     {
         switch (textField.tag) {
             case 0:
-                _distance = number;
+                _distance = [NSNumber numberWithDouble:number];
                 NSLog(@"%@", _distanceTextField.text);
                 break;
             case 1:
-                _duration = number;
+                _duration = [NSNumber numberWithDouble:number];
                 NSLog(@"%@", _durationTextField.text);
                 break;
             case 2:
-                _rate = number;
+                _rate = [NSNumber numberWithDouble:number];
                 NSLog(@"%@", _rateTextField.text);
                 break;
             default:
@@ -237,7 +240,7 @@
         }
     }
     
-    _testLabel.text = [NSString stringWithFormat:@"Distance: %.2f, Duration: %.2f, Rate: %.2f, %d", _distance, _duration, _rate, _variableCounter];
+//    _testLabel.text = [NSString stringWithFormat:@"Distance: %.2f, Duration: %.2f, Rate: %.2f, %d", _distance, _duration, _rate, _variableCounter];
     
     _activeField = nil;
 }
@@ -267,18 +270,18 @@
     
     if (_distance && _duration)
     {
-        _rate = _distance/_duration;
-        _rateTextField.text = [NSString stringWithFormat:@"%.3f", _rate];
+        _rate = [NSNumber numberWithDouble:[_distance doubleValue]/[_duration doubleValue]];
+        _rateTextField.text = [NSString stringWithFormat:@"%@", _rate];
     }
     else if (_distance && _rate)
     {
-        _duration = _distance/_rate;
-        _durationTextField.text = [NSString stringWithFormat:@"%.3f", _duration];
+        _duration = [NSNumber numberWithDouble:[_distance doubleValue]/[_rate doubleValue]];
+        _durationTextField.text = [NSString stringWithFormat:@"%@", _duration];
     }
     else if (_duration && _rate)
     {
-        _distance = _duration * _rate;
-        _distanceTextField.text = [NSString stringWithFormat:@"%.3f", _distance];
+        _distance = [NSNumber numberWithDouble:[_duration doubleValue] * [_rate doubleValue]];
+        _distanceTextField.text = [NSString stringWithFormat:@"%@", _distance];
     }
     NSLog(@"Calculate formula");
 }
@@ -356,24 +359,42 @@
 #pragma mark -
 #pragma mark Protocols
 #pragma mark passDurationData Protocol Methods
--(void)setDurationValue:(double)durationData
+-(void)setDurationValuesHour:(NSNumber *)durationHour minutes:(NSNumber *)durationMinutes seconds:(NSNumber *)durationSeconds
 {
-    //Todo
+    _paceValues.durationHour = durationHour;
+    _paceValues.durationMin = durationMinutes;
+    _paceValues.durationSec = durationSeconds;
+    _paceValues.durationTotalSeconds = [_paceValues convertToSecondsUsingHours:_paceValues.durationHour
+                                                                       minutes:_paceValues.durationMin
+                                                                       seconds:_paceValues.durationSec];
+    _duration = _paceValues.durationTotalSeconds;
 }
 
 
 #pragma mark passRateData Protocol Methods
--(void)setRateValue:(double)rateData
+-(void)setSpeedValue:(NSNumber *)speedData
 {
     if (willResetVariables) {
         [self resetPacerVariables];
     }
-    _rate = rateData;
+    
+    _paceValues.speed = speedData;
+    _paceValues.distanceUnitPerSecond = [_paceValues convertDistancePerHourIntoPerSecond:speedData];
+    _rate = _paceValues.distanceUnitPerSecond;
+    
     _variableCounter += 1;
     if ([self canDoCalculationWith:[NSNumber numberWithInteger:_variableCounter]]) {
         [self calculateFormula];
     }
     //Todo
+}
+
+-(void)setPaceValuesMinutes:(NSNumber *)minuteData seconds:(NSNumber *)secondData
+{
+    _paceValues.rateMin = minuteData;
+    _paceValues.rateSec = secondData;
+    _paceValues.secondsPerDistanceUnit = [_paceValues convertToSecondsUsingHours:@(0) minutes:minuteData seconds:secondData];
+    _rate = _paceValues.secondsPerDistanceUnit;
 }
 
 
@@ -384,12 +405,13 @@
     NSLog(@"%@", unitOfLengthString);
 }
 
--(void)setDistanceValue:(double)distanceValue
+-(void)setDistanceValue:(NSNumber *)distanceValue
 {
     if (willResetVariables) {
         [self resetPacerVariables];
     }
-    _distance = distanceValue;
+    _paceValues.distance = distanceValue;
+    _distance = _paceValues.distance;
     _variableCounter += 1;
     if ([self canDoCalculationWith:[NSNumber numberWithInteger:_variableCounter]]) {
         [self calculateFormula];

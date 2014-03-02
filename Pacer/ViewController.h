@@ -10,6 +10,7 @@
 #import "DistanceViewController.h"
 #import "DurationViewController.h"
 #import "RateViewController.h"
+#import "PaceValues.h"
 
 @interface ViewController : UIViewController <UITextFieldDelegate, UIViewControllerTransitioningDelegate, passDistanceData, passDurationData, passRateData>
 {
@@ -17,11 +18,11 @@
     double duration;
     double rate;
 }
-@property double distance;
-@property double duration;
-@property double rate;
+@property (strong, nonatomic) NSNumber *rate, *duration, *distance;
 
 @property (strong, nonatomic) NSString *unitOfLengthString;
+
+@property (strong, nonatomic) PaceValues *paceValues;
 
 @property (weak, nonatomic) IBOutlet UITextField *distanceTextField;
 @property (weak, nonatomic) IBOutlet UITextField *durationTextField;

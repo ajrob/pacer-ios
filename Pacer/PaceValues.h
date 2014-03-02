@@ -11,13 +11,12 @@
 @interface PaceValues : NSObject
 
 // Input values from the views
-@property (weak, nonatomic) NSNumber *distance;
-@property (weak, nonatomic) NSNumber *durationHour;
-@property (weak, nonatomic) NSNumber *durationMin;
-@property (weak, nonatomic) NSNumber *durationSec;
-@property (weak, nonatomic) NSNumber *rateMin;
-@property (weak, nonatomic) NSNumber *rateSec;
+@property (strong, nonatomic) NSNumber *distance;
+@property (strong, nonatomic) NSNumber *durationHour, *durationMin, *durationSec, *durationTotalSeconds;
+@property (strong, nonatomic) NSNumber *rateMin, *rateSec, *speed, *distanceUnitPerSecond, *secondsPerDistanceUnit;
 
 // Public methods
-
+-(NSNumber *)convertToSecondsUsingHours:(NSNumber *)hours minutes:(NSNumber *)minutes seconds:(NSNumber *)seconds;
+-(NSNumber *)convertDistancePerHourIntoPerSecond:(NSNumber *)speed;
+//-(NSNumber *)convertSecondsPerDistanceUnitUsingMinutes:(NSNumber *)minutes andSeconds:(NSNumber *)seconds;
 @end

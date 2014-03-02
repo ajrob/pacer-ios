@@ -10,18 +10,25 @@
 
 @protocol passRateData <NSObject>
 
--(void) setRateValue:(double)rateData;
+-(void) setPaceValuesMinutes:(NSNumber *)minuteData seconds:(NSNumber *)secondData;
+-(void) setSpeedValue:(NSNumber *)speedData;
 
 @end
 
 @interface RateViewController : UIViewController
 
 @property (retain) id<passRateData> delegate;
-@property double rateDouble;
+@property (weak, nonatomic) NSNumber *rate;
 
 
 @property (strong, nonatomic) IBOutlet UIView *containerView;
+@property (weak, nonatomic) IBOutlet UIView *speedView;
+@property (weak, nonatomic) IBOutlet UIView *paceView;
 @property (weak, nonatomic) IBOutlet UITextField *speedTextField;
+@property (weak, nonatomic) IBOutlet UITextField *paceMinuteTextField;
+@property (weak, nonatomic) IBOutlet UITextField *paceSecondTextField;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *rateSegmented;
 
 - (IBAction)goBack:(id)sender;
+- (IBAction)rateSegmentChanged:(id)sender;
 @end

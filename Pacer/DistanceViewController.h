@@ -10,7 +10,7 @@
 
 @protocol passDistanceData <NSObject>
 
--(void)setDistanceValue:(double)distanceValue;
+-(void)setDistanceValue:(NSNumber *)distanceValue;
 -(void)setUnitOfLength:(NSString *)unitOfLength;
 
 @end
@@ -19,7 +19,7 @@
 
 @property (retain) id<passDistanceData> delegate;
 //@property (strong, nonatomic) NSNumber *distanceDouble;
-@property double distanceDouble;
+@property (weak, nonatomic) NSNumber *distance;
 @property (strong, nonatomic) NSString *unitOfLengthString;
 
 @property (strong, nonatomic) IBOutlet UIView *theView;
