@@ -8,10 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PaceValues : NSObject
+@interface PaceValues : NSObject <passDistanceData, passDurationData, passRateData>
 
 // Input values from the views
 @property (strong, nonatomic) NSNumber *distance;
+@property (strong, nonatomic) NSString *unitOfLength;
 @property (strong, nonatomic) NSNumber *durationHour, *durationMin, *durationSec, *durationTotalSeconds;
 @property (strong, nonatomic) NSNumber *rateMin, *rateSec, *speed, *distanceUnitPerSecond, *secondsPerDistanceUnit;
 

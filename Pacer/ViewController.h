@@ -14,9 +14,7 @@
 
 @interface ViewController : UIViewController <UITextFieldDelegate, UIViewControllerTransitioningDelegate, passDistanceData, passDurationData, passRateData>
 {
-    double distance;
-    double duration;
-    double rate;
+    
 }
 @property (strong, nonatomic) NSNumber *rate, *duration, *distance;
 

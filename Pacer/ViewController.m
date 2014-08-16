@@ -28,7 +28,7 @@
 @property BOOL willResetVariables;
 
 @property (nonatomic, strong) id<ADVAnimationController> animationController;
-
+@property (nonatomic, strong) NSNumber *durationHour, *durationMin, *rateMin, *rateSec, *speed;
 @end
 
 
@@ -50,6 +50,37 @@
 	// Do any additional setup after loading the view, typically from a nib.
 
     _paceValues = [[PaceValues alloc] init];
+    
+    // Register for PaceValues changes
+    [_paceValues addObserver:self
+                  forKeyPath:@"distance"
+                     options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+                     context:NULL];
+    [_paceValues addObserver:self
+                  forKeyPath:@"durationHour"
+                     options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+                     context:NULL];
+    [_paceValues addObserver:self
+                  forKeyPath:@"durationMin"
+                     options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+                     context:NULL];
+    [_paceValues addObserver:self
+                  forKeyPath:@"durationSec"
+                     options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+                     context:NULL];
+    [_paceValues addObserver:self
+                  forKeyPath:@"rateMin"
+                     options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+                     context:NULL];
+    [_paceValues addObserver:self
+                  forKeyPath:@"rateSec"
+                     options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+                     context:NULL];
+    [_paceValues addObserver:self
+                  forKeyPath:@"speed"
+                     options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+                     context:NULL];
+    
     _variableCounter = 0;
     _willResetVariables = NO;
     
@@ -96,17 +127,40 @@
 //                                    [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(textFieldShouldReturn:)], nil];
 }
 
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"distance"]) {
+        _distance = [change objectForKey:NSKeyValueChangeNewKey];
+        [_distanceButton setTitle:[NSString stringWithFormat:@"%@ %@", _distance, self.unitOfLengthString] forState:UIControlStateNormal];
+    }
+    else if ([keyPath isEqualToString:@""])
+    {
+        
+    }
+}
+
+-(void)dealloc
+{
+    [_paceValues removeObserver:self forKeyPath:@"distance"];
+    [_paceValues removeObserver:self forKeyPath:@"durationHour"];
+    [_paceValues removeObserver:self forKeyPath:@"durationMin"];
+    [_paceValues removeObserver:self forKeyPath:@"durationSec"];
+    [_paceValues removeObserver:self forKeyPath:@"rateMin"];
+    [_paceValues removeObserver:self forKeyPath:@"rateSec"];
+    [_paceValues removeObserver:self forKeyPath:@"speed"];
+}
+
 -(void)viewDidLayoutSubviews
 {
     // If distance is not empty, reset the button text
-    if ([_distance doubleValue] > 0.0f) {
-        [_distanceButton setTitle:[NSString stringWithFormat:@"%@ %@", _distance, unitOfLengthString] forState:UIControlStateNormal];
-    }
-    // Else reset to its default value
-    else
-    {
-        [_distanceButton setTitle:@"this distance" forState:UIControlStateNormal];
-    }
+//    if ([_distance doubleValue] > 0.0f) {
+//        [_distanceButton setTitle:[NSString stringWithFormat:@"%@ %@", _distance, unitOfLengthString] forState:UIControlStateNormal];
+//    }
+//    // Else reset to its default value
+//    else
+//    {
+//        [_distanceButton setTitle:@"this distance" forState:UIControlStateNormal];
+//    }
     
     if ([_rate doubleValue] > 0.0f) {
         [_rateButton setTitle:[NSString stringWithFormat:@"%@", _rate] forState:UIControlStateNormal];
@@ -256,12 +310,14 @@
 
 -(void)resetPacerVariables
 {
+    /*
     distance = 0;
     rate = 0;
     duration = 0;
     
     _willResetVariables = NO;
     _variableCounter = 0;
+     */
 }
 
 -(void)calculateFormula
@@ -361,13 +417,13 @@
 #pragma mark passDurationData Protocol Methods
 -(void)setDurationValuesHour:(NSNumber *)durationHour minutes:(NSNumber *)durationMinutes seconds:(NSNumber *)durationSeconds
 {
-    _paceValues.durationHour = durationHour;
-    _paceValues.durationMin = durationMinutes;
-    _paceValues.durationSec = durationSeconds;
-    _paceValues.durationTotalSeconds = [_paceValues convertToSecondsUsingHours:_paceValues.durationHour
-                                                                       minutes:_paceValues.durationMin
-                                                                       seconds:_paceValues.durationSec];
-    _duration = _paceValues.durationTotalSeconds;
+//    _paceValues.durationHour = durationHour;
+//    _paceValues.durationMin = durationMinutes;
+//    _paceValues.durationSec = durationSeconds;
+//    _paceValues.durationTotalSeconds = [_paceValues convertToSecondsUsingHours:_paceValues.durationHour
+//                                                                       minutes:_paceValues.durationMin
+//                                                                       seconds:_paceValues.durationSec];
+//    _duration = _paceValues.durationTotalSeconds;
 }
 
 
@@ -401,8 +457,10 @@
 #pragma mark passDistanceValues Protocol Methods
 -(void)setUnitOfLength:(NSString *)unitOfLength
 {
+    _paceValues.unitOfLength = unitOfLength;
     unitOfLengthString = unitOfLength;
     NSLog(@"%@", unitOfLengthString);
+//    [_distanceButton setTitle:[NSString stringWithFormat:@"%@%@", self.distance, unitOfLength] forState:UIControlStateNormal];
 }
 
 -(void)setDistanceValue:(NSNumber *)distanceValue
@@ -411,12 +469,12 @@
         [self resetPacerVariables];
     }
     _paceValues.distance = distanceValue;
-    _distance = _paceValues.distance;
+//    _distance = _paceValues.distance;
     _variableCounter += 1;
     if ([self canDoCalculationWith:[NSNumber numberWithInteger:_variableCounter]]) {
         [self calculateFormula];
     }
-    NSLog(@"%f", distance);
+    NSLog(@"%@", _distance);
 }
 
 
